@@ -4,3 +4,73 @@
  */
 
 @import 'tailwindcss';
+
+@theme {
+  --color-primary-50: hsl(169deg 65% 97%);
+  --color-primary-100: hsl(170deg 78% 89%);
+  --color-primary-200: hsl(172deg 77% 78%);
+  --color-primary-300: hsl(173deg 70% 64%);
+  --color-primary-400: hsl(175deg 60% 50%);
+  --color-primary-500: hsl(176deg 74% 39%);
+  --color-primary-600: hsl(177deg 78% 32%);
+  --color-primary-700: hsl(177deg 71% 26%);
+  --color-primary-800: hsl(178deg 64% 22%);
+  --color-primary-900: hsl(178deg 57% 19%);
+  --color-primary-950: hsl(182deg 76% 10%);
+  --color-primary: var(--color-primary-500);
+  --color-neutral-50: hsl(0deg 0% 96%);
+  --color-neutral-100: hsl(0deg 0% 91%);
+  --color-neutral-200: hsl(0deg 0% 82%);
+  --color-neutral-300: hsl(0deg 0% 69%);
+  --color-neutral-400: hsl(0deg 0% 53%);
+  --color-neutral-500: hsl(0deg 0% 43%);
+  --color-neutral-600: hsl(0deg 0% 36%);
+  --color-neutral-700: hsl(0deg 0% 31%);
+  --color-neutral-800: hsl(0deg 0% 27%);
+  --color-neutral-900: hsl(0deg 0% 24%);
+  --color-neutral-950: hsl(0deg 0% 0%);
+  --color-neutral: var(--color-neutral-500);
+  --color-sale-50: hsl(0deg 100% 97%);
+  --color-sale-100: hsl(0deg 100% 94%);
+  --color-sale-200: hsl(0deg 100% 89%);
+  --color-sale-300: hsl(0deg 100% 81%);
+  --color-sale-400: hsl(0deg 100% 70%);
+  --color-sale-500: hsl(0deg 96% 60%);
+  --color-sale-600: hsl(0deg 83% 51%);
+  --color-sale-700: hsl(0deg 84% 45%);
+  --color-sale-800: hsl(0deg 80% 35%);
+  --color-sale-900: hsl(0deg 72% 31%);
+  --color-sale-950: hsl(0deg 85% 15%);
+  --color-sale: var(--color-sale-500);
+
+  --step--2: clamp(0.6944rem, 0.6856rem + 0.0444vi, 0.72rem);
+  --step--1: clamp(0.8333rem, 0.8101rem + 0.1159vi, 0.9rem);
+  --step-0: clamp(1rem, 0.9565rem + 0.2174vi, 1.125rem);
+  --step-1: clamp(1.2rem, 1.1283rem + 0.3587vi, 1.4063rem);
+  --step-2: clamp(1.44rem, 1.3295rem + 0.5527vi, 1.7578rem);
+  --step-3: clamp(1.728rem, 1.5648rem + 0.8161vi, 2.1973rem);
+  --step-4: clamp(2.0736rem, 1.8395rem + 1.1704vi, 2.7466rem);
+  --step-5: clamp(2.4883rem, 2.1597rem + 1.6433vi, 3.4332rem);
+  --step-6: clamp(2.986rem, 2.5319rem + 2.2705vi, 4.2915rem);
+  --step-7: clamp(3.5832rem, 2.9636rem + 3.0978vi, 5.3644rem);
+
+  --breakpoint-sm: 40rem;
+  --breakpoint-md: 48rem;
+  --breakpoint-lg: 64rem;
+  --breakpoint-xl: 80rem;
+  --breakpoint-2xl: 90rem;
+
+  --container-3xs: 16rem;
+  --container-2xs: 18rem;
+  --container-xs: 20rem;
+  --container-sm: 24rem;
+  --container-md: 28rem;
+  --container-lg: 32rem;
+  --container-xl: 36rem;
+  --container-2xl: 42rem;
+  --container-3xl: 48rem;
+  --container-4xl: 56rem;
+  --container-5xl: 64rem;
+  --container-6xl: 72rem;
+  --container-7xl: 80rem;
+}
