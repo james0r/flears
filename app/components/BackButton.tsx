@@ -12,7 +12,7 @@ const BackButton = () => {
         'hover:scale-125',
         'transition-transform'
       ])}
-        onClick={() => {navigate(-1)} }
+        onClick={() => {void navigate(-1)} }
         type="button"
       >
         <MoveLeft />

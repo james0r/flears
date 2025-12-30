@@ -104,7 +104,7 @@ export const CollectionNavigation = () => {
               {collections.map((collection, i) => (
                 <CollectionNavigationLink
                   href={`${collection.url}`}
-                  key={i}
+                  key={collection.url}
                 >
                   {collection.title}
                 </CollectionNavigationLink>
@@ -173,7 +173,7 @@ export const CollectionNavigation = () => {
                 'space-y-1',
               ])}>
                 {collections.map((collection, i) => (
-                  <li key={i}>
+                  <li key={collection.url}>
                     <Link
                       className={cn([
                         'hover:text-primary',
@@ -211,13 +211,13 @@ const { pathname: currentPath } = useLocation()
         to={href}
         className={cn([
           'py-[.4rem]',
-          'bg-[linear-gradient(currentColor,_currentColor)]',
-          'bg-[length:0%_0.15em]',
-          'bg-[position:100%_100%]',
+          'bg-[linear-gradient(currentColor,currentColor)]',
+          'bg-size-[0%_0.15em]',
+          'bg-position-[100%_100%]',
           'bg-no-repeat',
-          'hover:bg-[length:100%_0.15em]',
-          'hover:bg-[position:0%_100%]',
-          currentPath === href ? 'bg-[length:100%_0.15em] bg-[position:0%_100%]' : '',
+          'hover:bg-size-[100%_0.15em]',
+          'hover:bg-position-[0%_100%]',
+          currentPath === href ? 'bg-size-[100%_0.15em] bg-position-[0%_100%]' : '',
         ])}
         style={{
           transition: 'background-size 0.2s ease-in-out'
