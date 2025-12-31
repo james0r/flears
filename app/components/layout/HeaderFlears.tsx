@@ -37,10 +37,11 @@ export function HeaderFlears({
   publicStoreDomain,
 }: HeaderProps) {
   const { shop, menu } = header
+
   return (
     <header className={cn([
       'bg-white',
-      'text-neutral'
+      'text-light-foreground'
     ])}>
       <Container id="f-mega-menu-container">
         <div className={cn([
@@ -70,7 +71,7 @@ export function HeaderFlears({
               'tracking-wider',
               'py-4'
             ])}>
-              <Link to="/">
+              <Link to="/" className="font-bold">
                 FLEARS
               </Link>
             </div>

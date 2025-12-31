@@ -52,7 +52,7 @@ export const CollectionNavigation = () => {
   return (
     <div className={cn([
       'relative',
-      'text-white'
+      'text-dark-foreground'
     ])}>
       <img
         alt="jeans background"

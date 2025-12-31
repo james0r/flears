@@ -1,7 +1,6 @@
 import { cn } from '~/utils'
 import { Link } from 'react-router'
 
-
 export const HeaderNav = () => {
 
   const mockHeaderLinks = [
@@ -52,8 +51,10 @@ export const HeaderNav = () => {
         {mockHeaderLinks && mockHeaderLinks.map((link: any, index: number) => (
           <li
             className={topLevelListItem}
-            key={index}>
-            <Link to={link} />
+            key={link.label}>
+            <Link to={link.href}>
+              {link.label}
+            </Link>
           </li>
         ))}
 

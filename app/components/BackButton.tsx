@@ -10,7 +10,8 @@ const BackButton = () => {
     <>
       <button className={cn([
         'hover:scale-125',
-        'transition-transform'
+        'transition-transform',
+        'cursor-pointer'
       ])}
         onClick={() => {void navigate(-1)} }
         type="button"

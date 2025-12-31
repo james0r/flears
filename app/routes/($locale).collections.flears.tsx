@@ -1,9 +1,11 @@
-import type { Route } from './+types/($locale).collections.all'
+import type { Route } from './+types/($locale).collections.flears'
 import { useLoaderData } from 'react-router'
 import { getPaginationVariables, Image, Money } from '@shopify/hydrogen'
 import { PaginatedResourceSection } from '~/components/PaginatedResourceSection'
 import { ProductItem } from '~/components/ProductItem'
 import type { CollectionItemFragment } from 'storefrontapi.generated'
+import { Container } from '~/components/shared/Container'
+import { cn } from '~/utils'
 
 export const meta: Route.MetaFunction = () => {
   return [{ title: `Hydrogen | Products` }]
@@ -26,7 +28,7 @@ export async function loader(args: Route.LoaderArgs) {
 async function loadCriticalData({ context, request }: Route.LoaderArgs) {
   const { storefront } = context
   const paginationVariables = getPaginationVariables(request, {
-    pageBy: 8,
+    pageBy: 8
   })
 
   const [{ products }] = await Promise.all([
@@ -35,6 +37,7 @@ async function loadCriticalData({ context, request }: Route.LoaderArgs) {
     }),
     // Add other queries here, so that they are loaded in parallel
   ])
+
   return { products }
 }
 
@@ -52,20 +55,28 @@ export default function Collection() {
 
   return (
     <div className="collection">
-      <h1>Products</h1>
-      <PaginatedResourceSection<CollectionItemFragment>
-        connection={products}
-        resourcesClassName="products-grid"
-      >
-        {({ node: product, index }) => (
-          <ProductItem
-            key={product.id}
-            product={product}
-            loading={index < 8 ? 'eager' : undefined}
-          />
-        )}
-      </PaginatedResourceSection>
-    </div>
+      <Container>
+        <PaginatedResourceSection<CollectionItemFragment>
+          connection={products}
+          resourcesClassName={
+            cn([
+              'grid',
+              'grid-cols-2',
+              'md:grid-cols-3',
+              'lg:grid-cols-4',
+              'gap-4',
+            ])}
+        >
+          {({ node: product, index }) => (
+            <ProductItem
+              key={product.id}
+              product={product}
+              loading={index < 8 ? 'eager' : undefined}
+            />
+          )}
+        </PaginatedResourceSection>
+      </Container>
+    </div >
   )
 }
 

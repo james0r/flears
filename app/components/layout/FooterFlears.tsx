@@ -23,7 +23,7 @@ export function Footer({
         {(footer) => (
           <footer className="footer">
             <footer
-              className={cn(["bg-neutral-950", "text-white"])}>
+              className={cn(["bg-dark-background", "text-dark-foreground"])}>
               <div
                 className={cn([
                   "pt-16",
