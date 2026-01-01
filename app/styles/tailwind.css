@@ -5,6 +5,13 @@
 
 @import 'tailwindcss';
 
+@import "tw-animate-css";
+
+/*---break---
+ */
+
+@custom-variant dark (&:is(.dark *));
+
 @theme {
   --font-sans: 'Karla', sans-serif;
   --font-serif: 'Lora', serif;
@@ -83,7 +90,7 @@
   --container-6xl: 72rem;
   --container-7xl: 80rem;
   --animate-fade-in: fadeIn 500ms ease;
-  
+
   @keyframes fadeIn {
     from {
       opacity: 0;

@@ -64,7 +64,6 @@ const MobileNavDrawer = ({
   const [isFocusTrapReady, setIsFocusTrapReady] = useState(false)
 
   function handleAnimationComplete(definition: any) {
-
     if (definition === "visible") {
       setIsFocusTrapReady(true)
     } else {
@@ -118,7 +117,7 @@ const MobileNavDrawer = ({
 
   return (
     <>
-      <motion.div className={cn([
+      <motion.button className={cn([
         'fixed',
         'inset-0',
         'bg-black/50',
@@ -128,7 +127,7 @@ const MobileNavDrawer = ({
         animate={isVisible ? "visible" : "hidden"}
         variants={fadeInOut}
       >
-      </motion.div>
+      </motion.button>
    
         <motion.div
           id={id}

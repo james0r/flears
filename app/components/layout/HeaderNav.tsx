@@ -1,16 +1,22 @@
 import { cn } from '~/utils'
 import { Link } from 'react-router'
+import { ItemLabel } from '../ui/ItemLabel'
 
 export const HeaderNav = () => {
 
-  const mockHeaderLinks = [
-    { label: 'Home', href: '/', _type: 'link' },
+  const mockHeaderLinks: HeaderLink[] = [
+    { label: 'Home', href: '/', _type: 'link', featured: 'sale' },
     { label: 'About', href: '/about', _type: 'link' },
     { label: 'Services', href: '/services', _type: 'link' },
-    { label: 'Contact', href: '/contact', _type: 'link' },
+    { label: 'Contact', href: '/contact', _type: 'link', featured: 'new' },
   ]
 
-  const headerMenuLinks = mockHeaderLinks
+  type HeaderLink = {
+    label: string
+    href: string
+    _type: string
+    featured?: 'sale' | 'hot' | 'new'
+  }
 
   // Define the variants for the animation
 
@@ -48,13 +54,23 @@ export const HeaderNav = () => {
         'h-24',
         'items-centere'
       ])}>
-        {mockHeaderLinks && mockHeaderLinks.map((link: any, index: number) => (
+        {mockHeaderLinks && mockHeaderLinks.map((link: HeaderLink, index: number) => (
+
           <li
             className={topLevelListItem}
             key={link.label}>
             <Link to={link.href}>
               {link.label}
             </Link>
+            {
+              link.featured && (
+                <ItemLabel
+                  variant={link.featured}
+                  size="sm"
+                  title={link.featured}
+                />
+              )
+            }
           </li>
         ))}
 
@@ -68,7 +84,8 @@ const topLevelListItem = cn([
   'items-center',
   'whitespace-nowrap',
   'font-semibold',
-  'tracking-wider'
+  'tracking-wider',
+  'relative'
 ])
 
 const topLevelButton = cn([
