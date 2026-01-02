@@ -1,12 +1,12 @@
 import type { Route } from './+types/($locale).collections.all'
-import { useLoaderData, useSearchParams } from 'react-router'
+import { Link, useLoaderData, useSearchParams } from 'react-router'
 import { getPaginationVariables, Image, Money } from '@shopify/hydrogen'
 import { PaginatedResourceSection } from '~/components/PaginatedResourceSection'
 import { ProductItem } from '~/components/ProductItem'
 import type { CollectionItemFragment } from 'storefrontapi.generated'
 import { Container } from '~/components/shared/Container'
 import { cn } from '~/utils'
-import {Button} from '~/components/ui/button'
+import { Button } from '~/components/ui/button'
 
 export const meta: Route.MetaFunction = () => {
   return [{ title: `Hydrogen | Products` }]
@@ -31,9 +31,6 @@ async function loadCriticalData({ context, request }: Route.LoaderArgs) {
   const paginationVariables = getPaginationVariables(request, {
     pageBy: 8
   })
-
-  const { searchParams } = new URL(request.url)
-  const cursor = searchParams.get("cursor")
 
   const [{ products }] = await Promise.all([
     storefront.query(CATALOG_QUERY, {
@@ -60,9 +57,6 @@ export default function Collection() {
   return (
     <div className="collection">
       <Container>
-        <Button variant="outline" size="lg" className="mb-4">
-          Button
-        </Button>
         <PaginatedResourceSection<CollectionItemFragment>
           connection={products}
           resourcesClassName={
@@ -102,6 +96,15 @@ const COLLECTION_ITEM_FRAGMENT = `#graphql
       url
       width
       height
+    }
+    options(first: 20) {
+      optionValues {
+        swatch {
+          color
+        }
+        name
+      }
+      name
     }
     priceRange {
       minVariantPrice {

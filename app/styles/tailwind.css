@@ -4,8 +4,8 @@
  */
 
 @import 'tailwindcss';
-
 @import "tw-animate-css";
+@plugin '@tailwindcss/typography';
 
 /*---break---
  */
@@ -89,7 +89,7 @@
   --container-5xl: 64rem;
   --container-6xl: 72rem;
   --container-7xl: 80rem;
-  --animate-fade-in: fadeIn 500ms ease;
+  --animate-fade-in: fadeIn 2000ms ease;
 
   @keyframes fadeIn {
     from {
@@ -145,4 +145,8 @@
 
 body {
   font-family: 'Karla', sans-serif;
+}
+
+@utility prose {
+  max-width: none;
 }
