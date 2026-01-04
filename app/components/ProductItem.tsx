@@ -7,6 +7,7 @@ import type {
 } from 'storefrontapi.generated'
 import { useVariantUrl } from '~/lib/variants'
 import { cn } from '~/utils'
+import { useRef } from "react";
 
 export function ProductItem({
   product,
@@ -20,12 +21,29 @@ export function ProductItem({
 }) {
   const variantUrl = useVariantUrl(product.handle)
   const image = product.featuredImage
+  const imageRef = useRef<HTMLImageElement>(null);
 
   const color = 'options' in product && product.options.find(
     (option) => option.name.toLowerCase() === 'color'
-  )
+  ) as { name: string; optionValues: { name: string; swatch?: { color: string } }[] } | undefined
 
-  console.log(color)
+  const variantsImagesForColorOption = 'variants' in product ? product.variants.nodes.reduce((acc, variant) => {
+    const colorOption = variant.selectedOptions.find(
+      (option) => option.name.toLowerCase() === 'color'
+    )
+
+    if (colorOption && variant.image) {
+      acc[colorOption.value] = variant.image
+    }
+
+    return acc
+  }, {} as Record<string, typeof product.featuredImage>) : {}
+
+  // console.log(variantsImagesForColorOption)
+
+  // console.log(color && color.optionValues.some((value: any) => value?.swatch?.color))
+  
+  // console.log(color && color.optionValues.find((value) => value?.swatch?.color !== null))
 
   return (
     <div key={product.id}>
@@ -53,6 +71,7 @@ export function ProductItem({
               data={image}
               loading={loading}
               sizes="(min-width: 45em) 400px, 100vw"
+              ref={imageRef}
               className={cn(
                 'transition-transform',
                 'group-hover:scale-105',
@@ -85,20 +104,55 @@ export function ProductItem({
               {color?.optionValues.map((value) => (
                 (
                   value?.swatch?.color && (
-                    <span
-                      key={value.name}
-                      className={cn(
-                        'w-4',
-                        'h-4',
-                        'rounded-full',
-                        'border',
-                        'border-neutral-200',
-                        'shadow-sm',
-                        'inline-block'
-                      )}
-                      style={{ backgroundColor: value.swatch.color }}
-                      title={value.name}
-                    />
+                      <button 
+                        key={value.name}
+                        data-src={variantsImagesForColorOption[value.name]?.url}
+                        data-value-name={value.name}
+                        onMouseEnter={(e) => {
+                          const imgUrl = (e.currentTarget as HTMLButtonElement).getAttribute('data-src');
+                          if (imgUrl && imageRef.current) {
+                            const tempSrc = imageRef.current.src;
+                            const tempSrcset = imageRef.current.srcset;
+
+                            imageRef.current.dataset['originalSrc'] = tempSrc;
+                            imageRef.current.dataset['originalSrcset'] = tempSrcset;
+
+                            imageRef.current.src = imgUrl;
+                            imageRef.current.srcset = imgUrl;
+
+                            // Preload original image
+                          }
+                        }}
+                        onMouseLeave={(e) => {
+                          if (imageRef.current) {
+                            const originalSrc = imageRef.current.dataset['originalSrc'];
+                            const originalSrcset = imageRef.current.dataset['originalSrcset'];
+                            if (originalSrc && originalSrcset) {
+                              imageRef.current.src = originalSrc;
+                              imageRef.current.srcset = originalSrcset;
+                            }
+
+                            // Clean up data attributes
+                            imageRef.current.removeAttribute('data-original-src');
+                            imageRef.current.removeAttribute('data-original-srcset');
+                          } 
+                        }}
+                        >
+                        <span
+                          key={value.name}
+                          className={cn(
+                            'w-4',
+                            'h-4',
+                            'rounded-full',
+                            'border',
+                            'border-neutral-200',
+                            'shadow-sm',
+                            'inline-block'
+                          )}
+                          style={{ backgroundColor: value.swatch.color }}
+                          title={value.name}
+                        />
+                      </button>
                   )
                 )
               ))}
