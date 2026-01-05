@@ -134,7 +134,20 @@ aside li {
 }
 /* reveal aside */
 .overlay.expanded aside {
+  /* transform: translateX(calc(var(--aside-width) * -1)); */
+}
+body:has(.overlay.expanded aside) {
   transform: translateX(calc(var(--aside-width) * -1));
+  transition: transform 200ms ease-in-out;
+}
+
+body {
+  transition: transform 200ms ease-in-out;
+}
+
+.overlay.expanded .close-outside {
+  transform: translateX(var(--aside-width));
+  transition: transform 200ms ease-in-out;
 }
 
 button.reset {

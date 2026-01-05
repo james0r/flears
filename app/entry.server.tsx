@@ -19,6 +19,8 @@ export default async function handleRequest(
       checkoutDomain: context.env.PUBLIC_CHECKOUT_DOMAIN,
       storeDomain: context.env.PUBLIC_STORE_DOMAIN,
     },
+    imgSrc: ['https://res.cloudinary.com', 'https://cdn.shopify.com', 'localhost:3000'],
+    scriptSrc: ["'self'", "'unsafe-inline'", "'nonce'", 'https://cdn.shopify.com'],
   });
 
   const body = await renderToReadableStream(

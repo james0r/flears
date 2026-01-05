@@ -1,17 +1,22 @@
-import bgImage from '/collection-navigation-bg-jeans.webp'
 import { motion, type Variants } from 'framer-motion'
 import { Container } from "~/components/shared/Container"
 import BackButton from '~/components/BackButton'
 import { collections } from '~/seed'
 import { cn } from "~/utils"
-import { Link, useLocation} from 'react-router'
+import { Link, useLocation } from 'react-router'
 import { ChevronDown } from 'lucide-react'
 import { useEffect, useId, useRef, useState } from 'react'
+import { AdvancedImage, lazyload, responsive } from '@cloudinary/react'
+import { fill, scale } from "@cloudinary/url-gen/actions/resize"
+import { cld } from "~/lib/cloudinary"
+
 
 export const CollectionNavigation = () => {
   const [isExpanded, setIsExpanded] = useState(false)
   const mobileCategoriesId = useId()
   const drawerRef = useRef<any>(null)
+
+  const myImage = cld.image('collection-navigation-bg-jeans').format('auto')
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -52,11 +57,14 @@ export const CollectionNavigation = () => {
   return (
     <div className={cn([
       'relative',
-      'text-dark-foreground'
+      'text-dark-foreground',
     ])}>
-      <img
-        alt="jeans background"
-        src={bgImage}
+      <AdvancedImage
+        cldImg={myImage}
+        plugins={[
+          responsive({ steps: [320, 640, 768, 1024, 1280] }),
+          lazyload(),
+        ]}
         className="object-cover inset-0 h-full w-full absolute"
       />
       <div className={cn([
@@ -201,7 +209,7 @@ const CollectionNavigationLink = ({ href, children }: { href: string, children: 
   // Animation approach from:
   // https://nerdcowboy.com/blog/sliding-underlined-links/
 
-const { pathname: currentPath } = useLocation()
+  const { pathname: currentPath } = useLocation()
 
   return (
     <li className={cn([
